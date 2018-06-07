@@ -9,6 +9,8 @@ public class ReplaySystem : MonoBehaviour {
 
 	private Rigidbody rigidbody;
 	private GameManager gameManager;
+	private bool firstRecordMade = false;
+
 	private int lastFrameRecorded=0;
 	private int lastFramePlayedBack =0;
 	private int totalFramesRecorded=1;
@@ -26,19 +28,21 @@ public class ReplaySystem : MonoBehaviour {
 	void Update () {
 		if (gameManager.recording){
 			Record ();
-		}else {
+		}else if (!gameManager.recording && firstRecordMade) {
 			PlayBack();
+			Debug.Log("Playbacking");
 		}
 	}
 
 	void Record () {
 		rigidbody.isKinematic = false;
+		firstRecordMade = true;
 		int frame = Time.frameCount % bufferFrames;
 		float time = Time.time;
 		lastFrameRecorded = Time.frameCount;
 		totalFramesRecorded = lastFrameRecorded-lastFramePlayedBack;
 		print ("Writing frame: " + frame);
-		//print ("Frame: " + Time.frameCount);
+		print ("Frame: " + Time.frameCount);
 		keyFrames [frame] = new MyKeyFrame (time, transform.position, transform.rotation);
 	}
 
