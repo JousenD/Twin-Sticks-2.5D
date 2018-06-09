@@ -41,8 +41,8 @@ public class ReplaySystem : MonoBehaviour {
 		float time = Time.time;
 		lastFrameRecorded = Time.frameCount;
 		totalFramesRecorded = lastFrameRecorded-lastFramePlayedBack;
-		print ("Writing frame: " + frame);
-		print ("Frame: " + Time.frameCount);
+		//print ("Writing frame: " + frame);
+		//print ("Frame: " + Time.frameCount);
 		keyFrames [frame] = new MyKeyFrame (time, transform.position, transform.rotation);
 	}
 
@@ -55,7 +55,7 @@ public class ReplaySystem : MonoBehaviour {
 		}else{
 			frame = Time.frameCount % totalFramesRecorded;
 		}
-		print ("Reading frame: " + frame);
+		//print ("Reading frame: " + frame);
 		transform.position = keyFrames [frame].position;
 		transform.rotation = keyFrames [frame].rotation;
 		lastFramePlayedBack = Time.frameCount;
